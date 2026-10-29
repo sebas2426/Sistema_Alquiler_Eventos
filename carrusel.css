@@ -2,6 +2,7 @@
 	
     width: 100%;
     background-color: red;
+	grid-column:1/5;
 }
 
 .slider-wrapper {
