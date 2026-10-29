@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./carrusel.css">
+    <script src="./script.js" defer></script>
+    <title>Alquiler Eventos
+    </title>
+</head>
+<body>
+    <header>
+        <div class="header-der">
+            <a href="./index.html"><h4>Empresa</h4></a>
+        </div>
+            
+        
+        <nav class="header-izq" >
+            <a href="">Catálogo</a>
+            <a href="">Arma tu Presupuesto</a>
+            <a href="">Contacto</a>
+        </nav>
+        
+    </header>
+
+    <main>
+        
+        <section class="container">
+	<div class="slider-wrapper">
+		<div class="slider">
+			<img id="slide-1" src="../img/ejemplo.jpg" alt="3D rendering of an imaginary orange planet in space" />
+			<img id="slide-2" src="../img/ejemplo2.png" alt="3D rendering of an imaginary green planet in space" />
+			<img id="slide-3" src="../img/ejemplo3.jpg" alt="3D rendering of an imaginary blue planet in space" />
+		</div>
+		<div class="slider-nav">
+			<a href="#slide-1"></a>
+			<a href="#slide-2"></a>
+			<a href="#slide-3"></a>
+		</div>
+	</div>
+</section>
+    </main>
+
+
+    <footer>
+        <h1>Adiós
+        </h1>
+    </footer>
+</body>
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const slider    = document.querySelector('.slider');
+  const slides    = slider.querySelectorAll('img');
+  let current     = 0;
+  const total     = slides.length;
+  const interval  = 5000;
+
+  function nextSlide() {
+    current = (current + 1) % total;
+    // desplazamiento interno: offsetLeft es la posición relativa dentro de .slider
+    slider.scrollTo({
+      left: slides[current].offsetLeft,
+      behavior: 'smooth'
+    });
+    updateNav();
+  }
+
+  const navDots = document.querySelectorAll('.slider-nav a');
+  function updateNav() {
+    navDots.forEach((dot, i) => {
+      dot.style.opacity = (i === current ? '1' : '0.75');
+    });
+  }
+
+  let slideInterval = setInterval(nextSlide, interval);
+
+  // pausa/al reanudar
+  slider.addEventListener('mouseenter', () => clearInterval(slideInterval));
+  slider.addEventListener('mouseleave', () => {
+    slideInterval = setInterval(nextSlide, interval);
+  });
+
+  // clic en puntos de navegación
+  navDots.forEach((dot, i) => {
+    dot.addEventListener('click', e => {
+      e.preventDefault();             // evita el cambio de hash en la URL
+      current = i;
+      slider.scrollTo({
+        left: slides[current].offsetLeft,
+        behavior: 'smooth'
+      });
+      updateNav();
+    });
+  });
+});
+
+</script>
+</html>
